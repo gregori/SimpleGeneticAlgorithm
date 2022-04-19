@@ -4,14 +4,14 @@ public class Population {
     Individual[] individuals = new Individual[10];
     int fittest = 0;
 
-    //Initialize population
+    //Inicializar população
     public void initializePopulation(int size) {
         for (int i = 0; i < individuals.length; i++) {
             individuals[i] = new Individual();
         }
     }
 
-    //Get the fittest individual
+    //Obtenha o indivíduo mais apto
     public Individual getFittest() {
         int maxFit = Integer.MIN_VALUE;
         int maxFitIndex = 0;
@@ -25,7 +25,7 @@ public class Population {
         return individuals[maxFitIndex];
     }
 
-    //Get the second most fittest individual
+    //Obtenha o segundo indivíduo mais apto
     public Individual getSecondFittest() {
         int maxFit1 = 0;
         int maxFit2 = 0;
@@ -40,7 +40,7 @@ public class Population {
         return individuals[maxFit2];
     }
 
-    //Get index of least fittest individual
+    //Obter índice do indivíduo menos apto
     public int getLeastFittestIndex() {
         int minFitVal = Integer.MAX_VALUE;
         int minFitIndex = 0;
@@ -53,7 +53,7 @@ public class Population {
         return minFitIndex;
     }
 
-    //Calculate fitness of each individual
+    //Calcule a aptidão de cada indivíduo
     public void calculateFitness() {
 
         for (int i = 0; i < individuals.length; i++) {
