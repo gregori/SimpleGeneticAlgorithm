@@ -12,22 +12,22 @@ public class SimpleGA {
 
         SimpleGA demo = new SimpleGA();
 
-        //Initialize population
+        //Inicializar população
         demo.population.initializePopulation(10);
 
-        //Calculate fitness of each individual
+        //Calcule a aptidão de cada indivíduo
         demo.population.calculateFitness();
 
-        System.out.println("Generation: " + demo.generationCount + " Fittest: " + demo.population.fittest);
+        System.out.println("Generation: " + demo.generationCount + " Fittest: " + demo.population.fittest );
 
-        //While population gets an individual with maximum fitness
-        while (demo.population.fittest < 5) {
+        //Enquanto a população obtém um indivíduo com aptidão máxima
+        while (demo.population.fittest < 90) {
             ++demo.generationCount;
 
-            //Do selection
+            //Fazer seleção
             demo.selection();
 
-            //Do crossover
+            //Fazer cruzamento
             demo.crossover();
 
             //Do mutation under a random probability
@@ -35,44 +35,46 @@ public class SimpleGA {
                 demo.mutation();
             }
 
-            //Add fittest offspring to population
+            //Adicionar descendentes mais aptos à população
             demo.addFittestOffspring();
 
-            //Calculate new fitness value
+            //Calcular novo valor de fitness
             demo.population.calculateFitness();
 
             System.out.println("Generation: " + demo.generationCount + " Fittest: " + demo.population.fittest);
         }
 
         System.out.println("\nSolution found in generation " + demo.generationCount);
-        System.out.println("Fitness: "+demo.population.getFittest().fitness);
+        System.out.println("Fitness: " + demo.population.getFittest().fitness);
         System.out.print("Genes: ");
-        for (int i = 0; i < 5; i++) {
-            System.out.print(demo.population.getFittest().genes[i]);
-        }
 
+        for (int i = 0; i < 5; i++) {
+            System.out.println(demo.population.getFittest().genes[i]);
+        }
+        
+        System.out.println(demo.fittest);
         System.out.println("");
 
     }
 
-    //Selection
+    //Seleção
     void selection() {
 
-        //Select the most fittest individual
+        //Selecione o indivíduo mais apto
         fittest = population.getFittest();
 
-        //Select the second most fittest individual
+        //Selecione o segundo indivíduo mais apto
         secondFittest = population.getSecondFittest();
     }
 
-    //Crossover
+    //Cruzamento
     void crossover() {
         Random rn = new Random();
 
-        //Select a random crossover point
+        //Selecione um ponto de cruzamento aleatório
         int crossOverPoint = rn.nextInt(population.individuals[0].geneLength);
 
-        //Swap values among parents
+        //Trocar valores entre os pais
         for (int i = 0; i < crossOverPoint; i++) {
             int temp = fittest.genes[i];
             fittest.genes[i] = secondFittest.genes[i];
@@ -82,14 +84,14 @@ public class SimpleGA {
 
     }
 
-    //Mutation
+    //Mutação
     void mutation() {
         Random rn = new Random();
 
-        //Select a random mutation point
+        //Selecione um ponto de mutação aleatório
         int mutationPoint = rn.nextInt(population.individuals[0].geneLength);
 
-        //Flip values at the mutation point
+        //Inverter valores no ponto de mutação
         if (fittest.genes[mutationPoint] == 0) {
             fittest.genes[mutationPoint] = 1;
         } else {
@@ -105,7 +107,7 @@ public class SimpleGA {
         }
     }
 
-    //Get fittest offspring
+    //Obter descendentes mais aptos
     Individual getFittestOffspring() {
         if (fittest.fitness > secondFittest.fitness) {
             return fittest;
@@ -114,17 +116,17 @@ public class SimpleGA {
     }
 
 
-    //Replace least fittest individual from most fittest offspring
+    //Substitua o indivíduo menos apto da prole mais apto
     void addFittestOffspring() {
 
-        //Update fitness values of offspring
+        //Atualizar os valores de aptidão dos descendentes
         fittest.calcFitness();
         secondFittest.calcFitness();
 
-        //Get index of least fit individual
+        //Obter índice do indivíduo menos apto
         int leastFittestIndex = population.getLeastFittestIndex();
 
-        //Replace least fittest individual from most fittest offspring
+        //Substitua o indivíduo menos apto da prole mais apto
         population.individuals[leastFittestIndex] = getFittestOffspring();
     }
 }
